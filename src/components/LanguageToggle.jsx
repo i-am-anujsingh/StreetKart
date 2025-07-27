@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-const LanguageToggle = () => {
+const LanguageToggle = ({className}) => {
   const { i18n } = useTranslation();
 
   const toggleLanguage = () => {
@@ -12,15 +12,7 @@ const LanguageToggle = () => {
   return (
     <button
       onClick={toggleLanguage}
-      style={{
-        padding: '8px 12px',
-        backgroundColor: '#333',
-        color: 'white',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        margin: '1rem'
-      }}
+      className={`${className}`}
     >
       {i18n.language === 'en' ? 'हिंदी में देखें' : 'View in English'}
     </button>

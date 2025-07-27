@@ -14,6 +14,7 @@ import Login from './pages/Login.jsx'
 import Home from './pages/Home.jsx'
 import Signup from './pages/Signup.jsx'
 import VendorDashboard from './pages/VendorDashboard.jsx'
+import AddPost from './pages/AddPost.jsx'
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,16 @@ const router = createBrowserRouter([
             <AuthLayout authentication={true}>
               <VendorDashboard />
             </AuthLayout>),
+            children:[
+              {
+              path: "/profile/sell-Material",
+              element:(
+               <AuthLayout authentication={true}>
+                <AddPost />
+              </AuthLayout>
+                ),
+              },
+              ]
         },
     ],
 },

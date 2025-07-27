@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MaterialCard from '../components/cards/Materialcard.jsx';
+import { useTranslation } from 'react-i18next';
 
 const mockItems = [
   {
@@ -11,35 +12,42 @@ const mockItems = [
   },
   {
     _id: '2',
-    name: 'Onion',
+    name: 'Onions',
     description: 'Organic onions',
     pricePerKg: 20,
-    image: 'https://source.unsplash.com/400x300/?onion'
+    image: ''
   }
 ];
 
-export default function BuyMaterials(){
+export default function BuyMaterials() {
   const [items, setItems] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
-    // You can replace this with API call later
-    setItems(mockItems);
+    // Replace with real API call
+    setItems(
+      mockItems.map(item => ({
+        ...item,
+        image: item.image || 'https://source.unsplash.com/400x300/?vegetables'
+      }))
+    );
   }, []);
 
   const handleBuy = (item) => {
-    alert(`You chose to buy: ${item.name}`);
-    // Trigger API call to place order
+    alert(`${t('You chose to buy')}: ${t(item.name)}`);
+    // TODO: Trigger real API call here
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Buy Raw Materials</h2>
-      <div className="flex flex-wrap justify-start">
-        {items.map((item) => (
+    <div className="min-h-screen bg-gradient-to-br from-yellow-100 to-yellow-50 px-6 py-10">
+      <h2 className="text-3xl font-bold text-green-700 mb-6">
+        {t('Buy Materials')}
+      </h2>
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {items.map(item => (
           <MaterialCard key={item._id} item={item} onBuy={handleBuy} />
         ))}
       </div>
     </div>
   );
-};
-
+}

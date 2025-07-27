@@ -1,69 +1,84 @@
-import React from 'react'
-import Container from '../container/Container.jsx'
-import Button from '../Button.jsx'
-import Logo from '../Logo.jsx'
-import { Link, useNavigate } from 'react-router-dom'
-import LogoutBtn from '../header/LogoutBtn.jsx'
-import { useTranslation } from 'react-i18next'
-import i18n from '../../i18n'
-import '../../i18n'
-import LanguageToggle from '../LanguageToggle.jsx'
-import {useSelector} from 'react-redux'
-
+import React from 'react';
+import Container from '../container/Container.jsx';
+import Button from '../Button.jsx';
+import Logo from '../Logo.jsx';
+import { Link, useNavigate } from 'react-router-dom';
+import LogoutBtn from '../header/LogoutBtn.jsx';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
+import '../../i18n';
+import LanguageToggle from '../LanguageToggle.jsx';
+import { useSelector } from 'react-redux';
 
 function Header() {
-  const navigate = useNavigate()
-  const authStatus = false//useSelector((state) => state.auth.status)
-  const navItems = [    
+  const navigate = useNavigate();
+  const authStatus = false; // useSelector((state) => state.auth.status);
+  const { t } = useTranslation();
+
+  const navItems = [
     {
       name: 'Home',
-      slug: "/",
-      active:true,
-    }, 
-  {
-      name: "Buy Materials",
-      slug: "/buy-items",
-      active:!authStatus,
-  },
-  {
-      name: "Sell Materials",
-      slug: "/sell-items",
-      active:!authStatus,
-  },
-  {
-      name: "Profile",
-      slug: "/profile",
-      active:!authStatus,
-  },
+      slug: '/',
+      active: true,
+    },
+    {
+      name: 'Buy Materials',
+      slug: '/buy-items',
+      active: !authStatus,
+    },
+    {
+      name: 'Sell Materials',
+      slug: '/sell-items',
+      active: !authStatus,
+    },
+    {
+      name: 'Profile',
+      slug: '/profile',
+      active: !authStatus,
+    },
+//     {
+//       name: 'Sell Material',
+//       slug: '/profile/sell-Material',
+//       active: !authStatus,
+//     },
+  ];
 
-  ]
-  const {t} = useTranslation()
   return (
-    <header className='py-3 shadow bg-gray-500'>
+    <header className="py-3 shadow-md bg-gray-900 text-white">
       <Container>
-        <nav className='flex flex-wrap'>
-          <div className='mr-4'>
-            <Link to='/'>
-              <Logo width='70px'   />
+        <nav className="flex flex-wrap items-center justify-between">
+          {/* Logo */}
+          <div className="mr-4 flex items-center">
+            <Link to="/">
+              <Logo width="70px" />
             </Link>
           </div>
-          <ul className='flex ml-auto'>
-          {navItems.map((item) =>
-          item.active?
-          (
-              <li key={item.name}>
-                <button
-                onClick={() => navigate(item.slug)}
-                className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
-                >{t(item.name)}</button>
-              </li>):null
+
+          {/* Navigation */}
+          <ul className="flex flex-wrap gap-3 items-center">
+            {navItems.map((item) =>
+              item.active ? (
+                <li key={item.name}>
+                  <button
+                    onClick={() => navigate(item.slug)}
+                    className="px-4 py-2 rounded-full transition-colors duration-300 hover:bg-yellow-400 hover:text-black"
+                  >
+                    {t(item.name)}
+                  </button>
+                </li>
+              ) : null
             )}
           </ul>
-          <LanguageToggle/>
+
+          {/* Language Toggle & Logout */}
+          <div className="flex items-center bg-amber-500 p-3 m-2 rounded-lg font-bold text-black gap-2">
+            <LanguageToggle />
+            {authStatus && <LogoutBtn />}
+          </div>
         </nav>
-        </Container>
+      </Container>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

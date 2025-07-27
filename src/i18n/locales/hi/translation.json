@@ -5,14 +5,139 @@
   "find_deals": "सबसे अच्छे सौदे खोजें",
   "Home": "होम",
   "Signup": "साइनअप",
+  "Profile": "प्रोफ़ाइल",
   "Buy Materials": "सामग्री खरीदें",
+  "Buy": "खरीदें",
   "Sell Materials": "सामग्री बेचें",
-    "app_name": "स्ट्रिटकार्ट",
-    "tagline": "सड़क विक्रेताओं को तकनीक से सशक्त बनाना",
-    "about": "हमारे बारे में",
-    "contact": "संपर्क करें",
-    "help": "सहायता",
-    "copyright": "स्ट्रिटकार्ट. सर्वाधिकार सुरक्षित.",
+  "app_name": "स्ट्रिटकार्ट",
+  "tagline": "सड़क विक्रेताओं को तकनीक से सशक्त बनाना",
+  "about": "हमारे बारे में",
+  "contact": "संपर्क करें",
+  "help": "सहायता",
+  "copyright": "स्ट्रिटकार्ट. सर्वाधिकार सुरक्षित.",
   "intro": "स्ट्रीट वेंडर्स को कच्चा माल आसानी से और तय दामों पर खरीदने और बेचने में मदद करें।",
-  "lang_note": "आप इस ऐप को हिंदी या अंग्रेज़ी में उपयोग कर सकते हैं।"
+  "lang_note": "आप इस ऐप को हिंदी या अंग्रेज़ी में उपयोग कर सकते हैं।",
+  "Sign in to your account": "अपने खाते में साइन इन करें",
+  "Don't have any account?": "कोई खाता नहीं है?",
+  "Sign Up": "साइन अप करें",
+  "Email: ": "ईमेल:",
+  "Enter your email": "अपना ईमेल दर्ज करें",
+  "Email address must be a valid address": "ईमेल पता मान्य होना चाहिए",
+  "Password: ": "पासवर्ड:",
+  "Enter your password": "अपना पासवर्ड दर्ज करें",
+  "Sign in": "साइन इन करें",
+  "Logo": "लोगो",
+  "Some error occurred": "कुछ गलत हो गया है",
+
+  "vegetable": "सब्ज़ी",
+  "vegetables": "सब्जियाँ",
+  "Vegetables": "सब्जियाँ",
+
+  "spice": "मसाला",
+  "spices": "मसाले",
+  "Spices": "मसाले",
+
+  "cooking_oil": "खाना पकाने का तेल",
+  "Cooking_Oil": "खाने का तेल",
+
+  "flour": "आटा",
+  "Flour": "आटा",
+
+  "rice": "चावल",
+  "Rice": "चावल",
+
+  "lentil": "दाल",
+  "lentils": "दालें",
+  "Lentils": "दालें",
+
+  "salt": "नमक",
+  "Salt": "नमक",
+
+  "sugar": "चीनी",
+  "Sugar": "चीनी",
+
+  "fruit": "फल",
+  "fruits": "फल",
+  "Fruits": "फल",
+
+  "ice": "बर्फ",
+  "Ice": "बर्फ",
+
+  "water": "पानी",
+  "Water": "पानी",
+
+  "soda": "सोडा",
+  "Soda": "सोडा",
+
+  "bread": "ब्रेड",
+  "Bread": "ब्रेड",
+
+  "butter": "मक्खन",
+  "Butter": "मक्खन",
+
+  "milk": "दूध",
+  "Milk": "दूध",
+
+  "paneer": "पनीर",
+  "Paneer": "पनीर",
+
+  "soya_chunk": "सोया चंक",
+  "soya_chunks": "सोया चंक्स",
+  "Soya_Chunks": "सोया चंक्स",
+
+  "chickpea": "चना",
+  "chickpeas": "चना",
+  "Chickpeas": "चना",
+
+  "noodle": "नूडल",
+  "noodles": "नूडल्स",
+  "Noodles": "नूडल्स",
+
+  "pulse": "अनाज",
+  "pulses": "अनाज",
+  "Pulses": "अनाज",
+
+  "tomato": "टमाटर",
+  "Tomato": "टमाटर",
+  "Tomatoes": "टमाटर",
+
+  "tomato_sauce": "टमाटर सॉस",
+  "Tomato_Sauce": "टमाटर सॉस",
+
+  "green_chili": "हरी मिर्च",
+  "green_chilies": "हरी मिर्च",
+  "Green_Chilies": "हरी मिर्च",
+
+  "onion": "प्याज़",
+  "onions": "प्याज़",
+  "Onions": "प्याज़",
+
+  "garlic": "लहसुन",
+  "Garlic": "लहसुन",
+
+  "ginger": "अदरक",
+  "Ginger": "अदरक",
+
+  "tea": "चाय",
+  "Tea": "चाय",
+
+  "coffee": "कॉफी",
+  "Coffee": "कॉफी",
+
+  "lemon_juice": "नींबू का रस",
+  "Lemon_Juice": "नींबू का रस",
+
+  "mustard_oil": "सरसों का तेल",
+  "Mustard_Oil": "सरसों का तेल",
+
+  "vinegar": "सिरका",
+  "Vinegar": "सिरका",
+
+  "Sign up to create account": "खाता बनाने के लिए साइन अप करें",
+  "Already have an account?": "पहले से खाता है?",
+  "Sign In": "साइन इन करें",
+  "Full Name: ": "पूरा नाम: ",
+  "Enter your full name": "अपना पूरा नाम दर्ज करें",
+  "Create Account": "खाता बनाएं",
+  "Contact Seller":"विक्रेता से संपर्क करें"
 }

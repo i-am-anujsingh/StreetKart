@@ -6,13 +6,146 @@
   "Home": "Home",
   "Signup": "Signup",
   "Buy Materials": "Buy Materials",
+  "Buy": "Buy",
+  "Profile": "Profile",
   "Sell Materials": "Sell Materials",
-    "app_name": "StreetKart",
-    "tagline": "Empowering Street Vendors Through Technology",
-    "about": "About Us",
-    "contact": "Contact",
-    "help": "Help",
-    "copyright": "StreetKart. All rights reserved.",
+  "app_name": "StreetKart",
+  "tagline": "Empowering Street Vendors Through Technology",
+  "about": "About Us",
+  "contact": "Contact",
+  "help": "Help",
+  "copyright": "StreetKart. All rights reserved.",
   "intro": "Helping street vendors buy and resell raw materials easily and at fixed prices.",
-  "lang_note": "You can use this app in Hindi or English."
+  "lang_note": "You can use this app in Hindi or English.",
+  "Sign in to your account": "Sign in to your account",
+  "Don't have any account?": "Don't have any account?",
+  "Sign Up": "Sign Up",
+  "Email: ": "Email: ",
+  "Enter your email": "Enter your email",
+  "Email address must be a valid address": "Email address must be a valid address",
+  "Password: ": "Password: ",
+  "Enter your password": "Enter your password",
+  "Sign in": "Sign in",
+  "Some error occurred": "Some error occurred",
+
+  "vegetables": "Vegetables",
+  "vegetable": "Vegetable",
+  "Vegetables": "Vegetables",
+  "Vegetable": "Vegetable",
+
+  "spices": "Spices",
+  "spice": "Spice",
+  "Spices": "Spices",
+  "Spice": "Spice",
+
+  "cooking_oil": "Cooking Oil",
+  "Cooking_Oil": "Cooking Oil",
+
+  "flour": "Flour",
+  "Flour": "Flour",
+
+  "rice": "Rice",
+  "Rice": "Rice",
+
+  "lentils": "Lentils",
+  "lentil": "Lentil",
+  "Lentils": "Lentils",
+  "Lentil": "Lentil",
+
+  "salt": "Salt",
+  "Salt": "Salt",
+
+  "sugar": "Sugar",
+  "Sugar": "Sugar",
+
+  "fruits": "Fruits",
+  "fruit": "Fruit",
+  "Fruits": "Fruits",
+  "Fruit": "Fruit",
+
+  "ice": "Ice",
+  "Ice": "Ice",
+
+  "water": "Water",
+  "Water": "Water",
+
+  "soda": "Soda",
+  "Soda": "Soda",
+
+  "bread": "Bread",
+  "Bread": "Bread",
+
+  "butter": "Butter",
+  "Butter": "Butter",
+
+  "milk": "Milk",
+  "Milk": "Milk",
+
+  "paneer": "Paneer (Cottage Cheese)",
+  "Paneer": "Paneer (Cottage Cheese)",
+
+  "soya_chunks": "Soya Chunks",
+  "soya_chunk": "Soya Chunk",
+  "Soya_Chunks": "Soya Chunks",
+  "Soya_Chunk": "Soya Chunk",
+
+  "chickpeas": "Chickpeas",
+  "chickpea": "Chickpea",
+  "Chickpeas": "Chickpeas",
+  "Chickpea": "Chickpea",
+
+  "noodles": "Noodles",
+  "noodle": "Noodle",
+  "Noodles": "Noodles",
+  "Noodle": "Noodle",
+
+  "pulses": "Pulses",
+  "pulse": "Pulse",
+  "Pulses": "Pulses",
+  "Pulse": "Pulse",
+
+  "tomato_sauce": "Tomato Sauce",
+  "Tomato_Sauce": "Tomato Sauce",
+
+  "tomato": "Tomato",
+  "Tomato": "Tomato",
+
+  "green_chilies": "Green Chilies",
+  "green_chili": "Green Chili",
+  "Green_Chilies": "Green Chilies",
+  "Green_Chili": "Green Chili",
+
+  "onions": "Onions",
+  "onion": "Onion",
+  "Onions": "Onions",
+  "Onion": "Onion",
+
+  "garlic": "Garlic",
+  "Garlic": "Garlic",
+
+  "ginger": "Ginger",
+  "Ginger": "Ginger",
+
+  "tea": "Tea",
+  "Tea": "Tea",
+
+  "coffee": "Coffee",
+  "Coffee": "Coffee",
+
+  "lemon_juice": "Lemon Juice",
+  "Lemon_Juice": "Lemon Juice",
+
+  "mustard_oil": "Mustard Oil",
+  "Mustard_Oil": "Mustard Oil",
+
+  "vinegar": "Vinegar",
+  "Vinegar": "Vinegar",
+
+  "Sign up to create account": "Sign up to create account",
+  "Already have an account?": "Already have an account?",
+  "Sign In": "Sign In",
+  "Full Name: ": "Full Name: ",
+  "Enter your full name": "Enter your full name",
+  "Create Account": "Create Account",
+  "Contact Seller":"Contact Seller"
 }
