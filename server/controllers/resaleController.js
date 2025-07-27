@@ -1,4 +1,4 @@
-const ResaleItem = require('../models/ResaleItem');
+const ResaleItem = require('../models/ResaleItem.js');
 
 exports.postResaleItem = async (req, res) => {
   try {

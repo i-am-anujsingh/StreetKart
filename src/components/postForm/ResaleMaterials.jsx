@@ -2,9 +2,13 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Input from "../Input.jsx";
 import Button from "../Button.jsx";
-// import service from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import {
+  createResaleItem,
+  updateResaleItem,
+  getFilePreview,
+} from "../../services/resaleService.js";
 
 export default function ResaleForm({ resaleItem }) {
     const { register, handleSubmit, setValue, getValues } = useForm({
@@ -18,27 +22,29 @@ export default function ResaleForm({ resaleItem }) {
 
     const userData = useSelector((state) => state.auth.userData);
     const navigate = useNavigate();
+const submit = async (data) => {
+    const formData = new FormData();
+    formData.append("itemName", data.itemName);
+    formData.append("quantity", data.quantity);
+    formData.append("price", data.price);
+    formData.append("location", data.location);
+    formData.append("sellerId", userData._id); // or userData.$id if you're using Appwrite/Mongo
+    if (data.image[0]) {
+        formData.append("image", data.image[0]);
+    }
 
-    const submit = async (data) => {
-        // const file = data.image[0] ? await service.uploadFile(data.image[0]) : null;
-// 
-//         const resaleData = {
-//             ...data,
-//             image: file ? file.$id : undefined,
-//             sellerId: userData.$id,
-//         };
-// 
-//         let dbResaleItem;
-//         if (resaleItem) {
-//             dbResaleItem = await service.updateResaleItem(resaleItem.$id, resaleData);
-//         } else {
-//             dbResaleItem = await service.createResaleItem(resaleData);
-//         }
-// 
-//         if (dbResaleItem) {
-//             navigate(`/resale/${dbResaleItem.$id}`);
-//         }
-    };
+    let responseItem;
+    if (resaleItem) {
+        responseItem = await updateResaleItem(resaleItem._id, formData);
+    } else {
+        responseItem = await createResaleItem(formData);
+    }
+
+    if (responseItem) {
+        navigate(`/resale/${responseItem._id}`);
+    }
+};
+    
 
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">

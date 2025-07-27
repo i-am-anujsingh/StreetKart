@@ -6,6 +6,8 @@ import Logo from './Logo.jsx'
 import { useDispatch } from "react-redux"
 import { useForm } from "react-hook-form"
 import { useTranslation } from 'react-i18next'
+import { loginVendor } from '../services/vendorService.js'; // import the service function
+import { login } from '../store/authSlice'; // if using redux auth slice
 
 export default function LogIn() {
     const { t } = useTranslation()
@@ -14,20 +16,20 @@ export default function LogIn() {
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState("")
 
-    const onLogin = async (data) => {
-        // setError("")
-        // try {
-        //     authService.logout()
-        //     const session = await authService.login(data)
-        //     if (session) {
-        //         const userData = await authService.getCurrentUser()
-        //         if (userData) dispatch(login(userData));
-        //         navigate("/")
-        //     }
-        // } catch (error) {
-        //     setError(error.message)
-        // }
+
+const onLogin = async (data) => {
+    setError("");
+    try {
+        const user = await loginVendor(data);
+        if (user) {
+            dispatch(login(user)); // save user data in redux
+            navigate("/");
+        }
+    } catch (error) {
+        setError(error.message || "Login failed");
     }
+};
+    
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-yellow-100 to-yellow-50 px-6 py-10">

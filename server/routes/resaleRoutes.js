@@ -7,7 +7,7 @@ buyResaleItem,
 } = require("../controllers/resaleController");
 const verifyToken = require("../middlewares/authMiddleware");
 
-router.post("/post", verifyToken, postResaleItem);
+router.post("/profile/resale", verifyToken, postResaleItem);
 router.get("/listings", getResaleListings);
 router.post("/buy/:id", verifyToken, buyResaleItem);
 

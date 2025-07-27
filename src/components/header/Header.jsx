@@ -36,11 +36,11 @@ function Header() {
       slug: '/profile',
       active: !authStatus,
     },
-//     {
-//       name: 'Sell Material',
-//       slug: '/profile/sell-Material',
-//       active: !authStatus,
-//     },
+   {
+      name: 'Sell Materials',
+      slug: '/profile/resale',
+      active: !authStatus,
+    },  
   ];
 
   return (
@@ -73,8 +73,9 @@ function Header() {
           {/* Language Toggle & Logout */}
           <div className="flex items-center bg-amber-500 p-3 m-2 rounded-lg font-bold text-black gap-2">
             <LanguageToggle />
-            {authStatus && <LogoutBtn />}
-          </div>
+            </div>
+            {!authStatus && <LogoutBtn />}
+          
         </nav>
       </Container>
     </header>

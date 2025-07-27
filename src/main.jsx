@@ -34,7 +34,7 @@ const router = createBrowserRouter([
               ),
         },
         {
-            path: "/signup",
+            path: "/register",
             element:(
             <AuthLayout authentication={true}>
               <Signup />
@@ -60,17 +60,16 @@ const router = createBrowserRouter([
             <AuthLayout authentication={true}>
               <VendorDashboard />
             </AuthLayout>),
-            children:[
+        },
               {
-              path: "/profile/sell-Material",
-              element:(
-               <AuthLayout authentication={true}>
-                <AddPost />
-              </AuthLayout>
+                path: "/resale",
+                element:(
+                  <AuthLayout authentication={true}>
+                    <AddPost />
+                  </AuthLayout>
                 ),
               },
-              ]
-        },
+        
     ],
 },
 ])

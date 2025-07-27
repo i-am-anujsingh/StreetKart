@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom'
 function App() {
 
  const [loading, setLoading] = useState(true)
-return loading ? (
+return !loading ? (
     <div className="min-h-screen bg-gradient-to-br from-yellow-100 to-yellow-50">
       <div className='w-full block'>
         <Header />
@@ -18,7 +18,9 @@ return loading ? (
         <Footer />
       </div>
     </div>
-  ): null
+  ): <div className="min-h-screen flex items-center justify-center text-2xl text-green-700">
+        Loading...
+      </div>
 }
 
 export default App
