@@ -1,0 +1,18 @@
+{
+  "welcome": "Welcome to Street Vendors App",
+  "Login": "Login",
+  "Logout": "Logout",
+  "find_deals": "Find Best Deals",
+  "Home": "Home",
+  "Signup": "Signup",
+  "Buy Materials": "Buy Materials",
+  "Sell Materials": "Sell Materials",
+    "app_name": "StreetKart",
+    "tagline": "Empowering Street Vendors Through Technology",
+    "about": "About Us",
+    "contact": "Contact",
+    "help": "Help",
+    "copyright": "StreetKart. All rights reserved.",
+  "intro": "Helping street vendors buy and resell raw materials easily and at fixed prices.",
+  "lang_note": "You can use this app in Hindi or English."
+}
