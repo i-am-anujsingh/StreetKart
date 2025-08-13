@@ -1,10 +1,22 @@
 import axios from 'axios';
 
-const API_BASE = "http://localhost:5000/api/vendors";
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
+
+// export const fetchVendors = async () => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/vendors/all`);
+//     const data = await response.json();
+//     return data;
+//   } catch (err) {
+//     console.error("Error fetching vendors:", err);
+//   }
+// };
+
+
 
 export const loginVendor = async (vendorData) => {
   try {
-    const res = await axios.post(`${API_BASE}/login`, vendorData);
+    const res = await axios.post(`${API_BASE}/auth/login`, vendorData);
     return res.data;
   } catch (err) {
     throw err.response?.data || { message: "Login failed" };
@@ -14,24 +26,23 @@ export const loginVendor = async (vendorData) => {
 
 export const registerVendor = async (vendorData) => {
   try {
-    const res = await axios.post(`${API_BASE}/register`, vendorData)
+    const res = await axios.post(`${API_BASE}/auth/register`, vendorData)
     return res.data
   } catch (err) {
     throw err
   }
 }
 
-
-
 export const getVendorDashboardData = async (vendorId) => {
   const [vendorRes, orderRes, resaleRes] = await Promise.all([
-    axios.get(`/api/vendor/${vendorId}`),
-    axios.get(`/api/orders/vendor/${vendorId}`),
-    axios.get(`/api/resale/vendor/${vendorId}`),
+    axios.get(`/auth/profile/${vendorId}`),
+    axios.get(`/orders/orders/${vendorId}`),
+    axios.get(`/resale/listings/`),
   ]);
+ // alert(vendorRes.data.message)
   return {
-    vendor: vendorRes.data,
-    orders: orderRes.data,
-    resaleItems: resaleRes.data,
+    vendorData: vendorRes.data.vendor,
+    ordersData: orderRes.data,
+    resaleItemsData: resaleRes.data,
   };
 };

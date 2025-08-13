@@ -10,6 +10,7 @@ const itemSchema = new mongoose.Schema({
   },
   image: {
     type: String // URL to image
+    
   },
   pricePerKg: {
     type: Number,
@@ -20,11 +21,12 @@ const itemSchema = new mongoose.Schema({
     required: true
   },
   supplierName: {
-    type: String
-    // Optional for now, could be linked to a Supplier model in future
+    type: String,
+    default: null
   },
   category: {
-    type: String // e.g., "vegetables", "spices"
+    type: String,
+    default:null
   },
   createdAt: {
     type: Date,

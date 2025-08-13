@@ -6,7 +6,7 @@ getAllVendors,
 } = require("../controllers/vendorController");
 const verifyToken = require("../middlewares/authMiddleware");
 
-router.put("/update", verifyToken, updateVendorProfile);
+router.put("/update", updateVendorProfile);
 router.get("/all", getAllVendors); // optional
 
 module.exports = router;

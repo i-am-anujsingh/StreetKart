@@ -15,6 +15,9 @@ import Home from './pages/Home.jsx'
 import Signup from './pages/Signup.jsx'
 import VendorDashboard from './pages/VendorDashboard.jsx'
 import AddPost from './pages/AddPost.jsx'
+import { useSelector } from 'react-redux';
+
+
 
 const router = createBrowserRouter([
   {
@@ -28,7 +31,7 @@ const router = createBrowserRouter([
         {
             path: "/login",
             element:(
-            <AuthLayout authentication={true}>
+            <AuthLayout authentication={false}>
               <Login />
             </AuthLayout>
               ),
@@ -36,7 +39,7 @@ const router = createBrowserRouter([
         {
             path: "/register",
             element:(
-            <AuthLayout authentication={true}>
+            <AuthLayout authentication={false}>
               <Signup />
             </AuthLayout>),
         },
@@ -61,14 +64,14 @@ const router = createBrowserRouter([
               <VendorDashboard />
             </AuthLayout>),
         },
-              {
-                path: "/resale",
-                element:(
-                  <AuthLayout authentication={true}>
-                    <AddPost />
-                  </AuthLayout>
-                ),
-              },
+        {
+            path: "/resale",
+            element:(
+            <AuthLayout authentication={true}>
+              <AddPost />
+            </AuthLayout>
+          ),
+        },
         
     ],
 },

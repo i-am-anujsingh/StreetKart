@@ -22,8 +22,8 @@ const onLogin = async (data) => {
     try {
         const user = await loginVendor(data);
         if (user) {
-            dispatch(login(user)); // save user data in redux
-            navigate("/");
+            dispatch(login(user.vendor)); // save user data in redux
+            navigate("/profile");
         }
     } catch (error) {
         setError(error.message || "Login failed");
@@ -45,7 +45,7 @@ const onLogin = async (data) => {
                 <p className="mt-2 text-center text-base text-black/60">
                     {t("Don't have any account?")}&nbsp;
                     <Link
-                        to="/signup"
+                        to="/register"
                         className="font-medium text-primary transition-all duration-200 hover:underline"
                     >
                         {t("Sign Up")}
@@ -53,20 +53,14 @@ const onLogin = async (data) => {
                 </p>
                 {error && <p className="text-red-600 mt-8 text-center">{t("Some error occurred")}</p>}
                 <form onSubmit={handleSubmit(onLogin)} className='mt-8'>
-                    <div className='space-y-5'>
-                        <Input
-                            label={t("Email: ")}
-                            placeholder={t("Enter your email")}
-                            type="email"
-                            {...register("email", {
-                                required: true,
-                                validate: {
-                                    matchPatern: (value) =>
-                                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                                        t("Email address must be a valid address"),
-                                }
-                            })}
-                        />
+                    <div className='space-y-5'><Input
+                          label={t("Phone Number")}
+                          placeholder={t("Enter your phone number")}
+                          type="tel"
+                          {...register("phone", {
+                              required: true,
+                          })}
+                      />
                         <Input
                             label={t("Password: ")}
                             type="password"

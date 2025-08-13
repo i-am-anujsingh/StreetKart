@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from '../components/Button.jsx';
 import { useSelector } from 'react-redux';
+import { getVendorDashboardData } from '../services/vendorService.js';
 
 const VendorDashboard = () => {
   const [vendor, setVendor] = useState(null);
@@ -9,7 +10,8 @@ const VendorDashboard = () => {
   const [resaleItems, setResaleItems] = useState([]);
 
   const userData = useSelector((state) => state.auth.userData);
-  const vendorId = userData?._id; // ✅ Real vendor ID from backend
+  const vendorId = userData?.id;
+  // ✅ Real vendor ID from backend
 
   useEffect(() => {
     if (vendorId) fetchVendorData();
@@ -17,15 +19,11 @@ const VendorDashboard = () => {
 
   const fetchVendorData = async () => {
     try {
-      const [vendorRes, orderRes, resaleRes] = await Promise.all([
-        axios.get(`/api/vendor/${vendorId}`),
-        axios.get(`/api/orders/vendor/${vendorId}`),
-        axios.get(`/api/resale/vendor/${vendorId}`),
-      ]);
+      const {vendorData,ordersData,resaleItemsData}= await getVendorDashboardData(vendorId);
 
-      setVendor(vendorRes.data);
-      setOrders(orderRes.data);
-      setResaleItems(resaleRes.data);
+      setVendor(vendorData);
+    //  setOrders(ordersData);
+      //setResaleItems(resaleItemsData);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     }
@@ -38,12 +36,12 @@ const VendorDashboard = () => {
       {/* Vendor Info */}
       <section className="bg-white rounded-2xl shadow-lg p-6">
         <h3 className="text-2xl font-semibold mb-4 text-indigo-600">👤 Vendor Info</h3>
-        {vendor ? (
+        {vendorId ? (
           <div className="grid grid-cols-2 gap-4 text-gray-700">
-            <p><span className="font-semibold">Name:</span> {vendor.name}</p>
-            <p><span className="font-semibold">Phone:</span> {vendor.phone}</p>
-            <p><span className="font-semibold">Language:</span> {vendor.language === 'hi' ? 'Hindi' : 'English'}</p>
-            <p><span className="font-semibold">Location:</span> {vendor.location || 'Not specified'}</p>
+            <p><span className="font-semibold">Name:</span> {userData.name}</p>
+            <p><span className="font-semibold">Phone:</span> {userData.phone}</p>
+            <p><span className="font-semibold">Language:</span> {userData.language === 'hi' ? 'Hindi' : 'English'}</p>
+            <p><span className="font-semibold">Location:</span> {userData.location || 'Not specified'}</p>
           </div>
         ) : (
           <p className="text-gray-500">Loading vendor info...</p>
@@ -53,7 +51,7 @@ const VendorDashboard = () => {
       {/* Orders */}
       <section className="bg-white rounded-2xl shadow-lg p-6">
         <h3 className="text-2xl font-semibold mb-4 text-green-600">🛒 My Orders</h3>
-        {orders.length === 0 ? (
+        {orders && orders.length === 0 ? (
           <p className="text-gray-500">No orders yet.</p>
         ) : (
           <ul className="grid gap-4 md:grid-cols-2">
@@ -62,7 +60,7 @@ const VendorDashboard = () => {
                 <p><strong>Item:</strong> {order.itemName}</p>
                 <p><strong>Quantity:</strong> {order.quantity} kg</p>
                 <p><strong>Total:</strong> ₹{order.totalPrice}</p>
-                <p><strong>Status:</strong> {order.status}</p>
+                {/*<p><strong>Status:</strong> {order.status}</p>*/}
                 <p><strong>Date:</strong> {new Date(order.dateOfPurchase).toLocaleDateString()}</p>
               </li>
             ))}

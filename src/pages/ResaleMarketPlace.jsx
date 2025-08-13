@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ResaleCard from "../components/cards/Resalecard.jsx";
-import { fetchResaleItems } from "../services/resaleService.js"; // Import the service
+import { getAllResaleItems } from "../services/resaleService.js"; // Import the service
 
 const ResaleMarketplace = () => {
   const [items, setItems] = useState([]);
@@ -8,7 +8,7 @@ const ResaleMarketplace = () => {
   useEffect(() => {
     const getItems = async () => {
       try {
-        const data = await fetchResaleItems();
+        const data = await getAllResaleItems();
         setItems(data);
       } catch (err) {
         console.error("Failed to load resale items:", err);

@@ -19,7 +19,8 @@ const resaleItemSchema = new mongoose.Schema({
     required: true
   },
   description: {
-    type: String
+    type: String,
+    default:null
     // Optional note about the item
   },
   location: {
@@ -27,7 +28,8 @@ const resaleItemSchema = new mongoose.Schema({
     // For nearby filtering, optional
   },
   image: {
-    type: String
+    type: String,
+    default:null
     // Optional image URL
   },
   status: {

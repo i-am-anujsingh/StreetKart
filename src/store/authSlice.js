@@ -1,28 +1,27 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState ={
-  status:false,
-  userData:null
-}
+const initialState = {
+  status: false,          // User is not logged in
+  userData: null          // MongoDB user data will be stored here
+};
 
 export const authSlice = createSlice({
-  name:"auth",
+  name: 'auth',
   initialState,
   reducers: {
-  //THESE ARE ACTIONS IN REDUCER
-    login:(state,action)=>{
-      state.status=true;
-      state.userData = action.payload.userData;
+    // Called after successful login from MongoDB backend
+    login: (state, action) => {
+      state.status = true;
+      state.userData = action.payload; // Direct MongoDB user object
     },
-    
-    logout:(state)=>{
-      state.status=false;
+
+    logout: (state) => {
+      state.status = false;
       state.userData = null;
     }
   }
-  
-})
+});
 
-export const {login,logout}=authSlice.actions;
+export const { login, logout } = authSlice.actions;
 
 export default authSlice.reducer;

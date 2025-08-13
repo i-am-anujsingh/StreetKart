@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import Button from './Button.jsx'
 import Input from './Input.jsx'
 import Logo from './Logo.jsx'
-import { useDispatch } from 'react-redux'
+import { login } from '../store/authSlice'; 
+//import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next' // added
 import { registerVendor } from '../services/vendorService.js'  // adjust the path as needed
@@ -11,15 +12,16 @@ import { registerVendor } from '../services/vendorService.js'  // adjust the pat
 export default function SignUp() {
     const navigate = useNavigate()
     const [error, setError] = useState("")
-    const dispatch = useDispatch()
+   // const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
     const { t } = useTranslation() // added
-const create = async (data) => {
+  const create = async (data) => {
     setError("")
     try {
         const userData = await registerVendor(data)
         if (userData) {
             navigate("/login") // Or go to profile or homepage
+            
         }
     } catch (error) {
         setError(error.response?.data?.message || "Registration failed")

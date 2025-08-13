@@ -2,19 +2,26 @@ const Vendor = require('../models/Vendor.js');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
+const JWT_SECRET = process.env.JWT_SECRET || 'supersecretkey';
 
 exports.registerVendor = async (req, res) => {
   try {
     const { name, phone, password, language, location } = req.body;
 
-    const existingVendor = await Vendor.findOne({ phone });
+    const existingVendor = await Vendor.findOne({ phone, password});
     if (existingVendor) {
       return res.status(400).json({ message: 'Phone already registered' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newVendor = new Vendor({ name, phone, password: hashedPassword, language, location });
+    const newVendor = new Vendor({
+      name:name, 
+      phone:phone, 
+      password: hashedPassword, 
+      language:language, 
+      location:location,
+      createdAt: new Date(),
+    });
     await newVendor.save();
 
     res.status(201).json({ message: 'Vendor registered successfully' });
@@ -32,7 +39,7 @@ exports.loginVendor = async (req, res) => {
     const isMatch = await bcrypt.compare(password, vendor.password);
     if (!isMatch) return res.status(400).json({ message: 'Incorrect password' });
 
-    const token = jwt.sign({ vendorId: vendor._id }, JWT_SECRET, { expiresIn: '7d' });
+     const token = jwt.sign({ vendorId: vendor._id }, JWT_SECRET, { expiresIn: '7d' });
 
     res.status(200).json({
       message: 'Login successful',
@@ -50,11 +57,19 @@ exports.loginVendor = async (req, res) => {
   }
 };
 
+
 exports.getVendorProfile = async (req, res) => {
   try {
     const vendor = await Vendor.findById(req.user.vendorId).select('-password');
     if (!vendor) return res.status(404).json({ message: 'Vendor not found' });
-    res.status(200).json(vendor);
+    
+    res.status(200).json({vendor: {
+        id: vendor._id,
+        name: vendor.name,
+        phone: vendor.phone,
+        language: vendor.language,
+        location: vendor.location,
+      }});
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });
   }

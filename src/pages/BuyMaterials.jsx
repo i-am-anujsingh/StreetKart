@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import MaterialCard from '../components/cards/Materialcard.jsx';
 import { useTranslation } from 'react-i18next';
-import { fetchItems, placeOrder } from '../services/itemService'; // ✅ import API
+import { placeOrder } from '../services/itemService'; 
+import { getAllMaterials } from '../services/materialService'; 
+import { useSelector } from 'react-redux';
+
+
 
 export default function BuyMaterials() {
   const [items, setItems] = useState([]);
   const { t } = useTranslation();
+  const authData =  useSelector((state) => state.auth.userData);
 
   useEffect(() => {
     const loadItems = async () => {
       try {
-        const data = await fetchItems();
+        const data = await getAllMaterials();
         setItems(
           data.map(item => ({
             ...item,
@@ -30,7 +35,7 @@ export default function BuyMaterials() {
     if (!quantity || quantity <= 0) return;
 
     const orderData = {
-      vendorId: "YOUR_VENDOR_ID", // ⚠️ Replace with logged-in vendor ID
+      vendorId: authData._id, // ⚠️ Replace with logged-in vendor ID
       itemId: item._id,
       itemName: item.name,
       quantity,

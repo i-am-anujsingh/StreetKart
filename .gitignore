@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .gitignore
+StreetKart/.env
+StreetKart/server/.env

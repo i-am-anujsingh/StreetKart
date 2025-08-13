@@ -3,12 +3,12 @@ const router = express.Router();
 const {
 postResaleItem,
 getResaleListings,
-buyResaleItem,
+//buyResaleItem,
 } = require("../controllers/resaleController");
-const verifyToken = require("../middlewares/authMiddleware");
+// const verifyToken = require("../middlewares/authMiddleware");
 
-router.post("/profile/resale", verifyToken, postResaleItem);
+router.post("/createresale", postResaleItem);
 router.get("/listings", getResaleListings);
-router.post("/buy/:id", verifyToken, buyResaleItem);
+//router.post("/buy/:id", verifyToken, buyResaleItem);
 
 module.exports = router;
