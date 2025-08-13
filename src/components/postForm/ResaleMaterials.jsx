@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Input from "../Input.jsx";
 import Button from "../Button.jsx";
-// import service from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import {createResaleItem} from "../../services/resaleService.js";
 
 export default function ResaleForm({ resaleItem }) {
     const { register, handleSubmit, setValue, getValues } = useForm({
@@ -16,29 +16,34 @@ export default function ResaleForm({ resaleItem }) {
         },
     });
 
-    const userData = useSelector((state) => state.auth.userData);
-    const navigate = useNavigate();
-
-    const submit = async (data) => {
-        // const file = data.image[0] ? await service.uploadFile(data.image[0]) : null;
-// 
-//         const resaleData = {
-//             ...data,
-//             image: file ? file.$id : undefined,
-//             sellerId: userData.$id,
-//         };
-// 
-//         let dbResaleItem;
-//         if (resaleItem) {
-//             dbResaleItem = await service.updateResaleItem(resaleItem.$id, resaleData);
-//         } else {
-//             dbResaleItem = await service.createResaleItem(resaleData);
-//         }
-// 
-//         if (dbResaleItem) {
-//             navigate(`/resale/${dbResaleItem.$id}`);
-//         }
-    };
+  const userData = useSelector((state) => state.auth.userData);
+  const navigate = useNavigate();
+  const submit = async (data) => {
+      const formData = new FormData();
+      formData.append("itemName", data.itemName);
+      formData.append("quantity", data.quantity);
+      formData.append("price", data.price);
+      formData.append("location", data.location);
+      formData.append("sellerId", userData._id); // or userData.$id if you're using Appwrite/Mongo
+      if (data.image[0]) {
+          formData.append("image", data.image[0]);
+      }
+  
+      let responseItem;
+      //TO WORK ON THIS LATER
+     //  if (resaleItem || 0) {
+//           responseItem = await updateResaleItem(resaleItem._id, formData);
+//       } else 
+      
+          responseItem = await createResaleItem(formData);
+      
+  
+      if (responseItem) {
+        navigate("/profile")
+         // navigate(`/resale/${responseItem._id}`);
+      }
+  };
+    
 
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -78,7 +83,7 @@ export default function ResaleForm({ resaleItem }) {
                     accept="image/png, image/jpg, image/jpeg"
                     {...register("image", { required: !resaleItem })}
                 />
-                {resaleItem && resaleItem.image && (
+                {/*resaleItem && resaleItem.image && (
                     <div className="w-full mb-4">
                         <img
                             src={service.getFilePreview(resaleItem.image)}
@@ -86,7 +91,7 @@ export default function ResaleForm({ resaleItem }) {
                             className="rounded-lg"
                         />
                     </div>
-                )}
+                )*/}
                 <Button type="submit" bgColor={resaleItem ? "bg-yellow-500" : "bg-blue-600"} className="w-full">
                     {resaleItem ? "Update Listing" : "Post Resale Item"}
                 </Button>

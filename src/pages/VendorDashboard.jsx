@@ -1,56 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Button from '../components/Button.jsx';
+import { useSelector } from 'react-redux';
+import { getVendorDashboardData } from '../services/vendorService.js';
 
 const VendorDashboard = () => {
-  const [vendor, setVendor] = useState({
-    name: 'vendor',
-    phone: 1234567789,
-    language: 'en',
-    location: 'Lucknow',
-  });
+  const [vendor, setVendor] = useState(null);
+  const [orders, setOrders] = useState([]);
+  const [resaleItems, setResaleItems] = useState([]);
 
-  const [orders, setOrders] = useState([
-    {
-      itemName: 'cabbage',
-      quantity: '2',
-      totalPrice: 150,
-      status: 'available',
-      dateOfPurchase: '2025-07-12',
-    },
-  ]);
+  const userData = useSelector((state) => state.auth.userData);
+  const vendorId = userData?.id;
+  // ✅ Real vendor ID from backend
 
-  const [resaleItems, setResaleItems] = useState([
-    {
-      itemName: 'cabbage',
-      quantity: '2',
-      price: 150,
-      status: 'available',
-      datePosted: '2025-07-12',
-    },
-  ]);
+  useEffect(() => {
+    if (vendorId) fetchVendorData();
+  }, [vendorId]);
 
-  const vendorId = '64fbe63a45d6a2c2e32b7f21';
+  const fetchVendorData = async () => {
+    try {
+      const {vendorData,ordersData,resaleItemsData}= await getVendorDashboardData(vendorId);
 
-  // useEffect(() => {
-  //   fetchVendorData();
-  // }, []);
-
-  // const fetchVendorData = async () => {
-  //   try {
-  //     const [vendorRes, orderRes, resaleRes] = await Promise.all([
-  //       axios.get(`/api/vendor/${vendorId}`),
-  //       axios.get(`/api/orders/vendor/${vendorId}`),
-  //       axios.get(`/api/resale/vendor/${vendorId}`),
-  //     ]);
-
-  //     setVendor(vendorRes.data);
-  //     setOrders(orderRes.data);
-  //     setResaleItems(resaleRes.data);
-  //   } catch (error) {
-  //     console.error('Error fetching dashboard data:', error);
-  //   }
-  // };
+      setVendor(vendorData);
+    //  setOrders(ordersData);
+      //setResaleItems(resaleItemsData);
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+    }
+  };
 
   return (
     <div className="p-6 max-w-6xl mx-auto space-y-8">
@@ -59,18 +36,22 @@ const VendorDashboard = () => {
       {/* Vendor Info */}
       <section className="bg-white rounded-2xl shadow-lg p-6">
         <h3 className="text-2xl font-semibold mb-4 text-indigo-600">👤 Vendor Info</h3>
-        <div className="grid grid-cols-2 gap-4 text-gray-700">
-          <p><span className="font-semibold">Name:</span> {vendor.name}</p>
-          <p><span className="font-semibold">Phone:</span> {vendor.phone}</p>
-          <p><span className="font-semibold">Language:</span> {vendor.language === 'hi' ? 'Hindi' : 'English'}</p>
-          <p><span className="font-semibold">Location:</span> {vendor.location || 'Not specified'}</p>
-        </div>
+        {vendorId ? (
+          <div className="grid grid-cols-2 gap-4 text-gray-700">
+            <p><span className="font-semibold">Name:</span> {userData.name}</p>
+            <p><span className="font-semibold">Phone:</span> {userData.phone}</p>
+            <p><span className="font-semibold">Language:</span> {userData.language === 'hi' ? 'Hindi' : 'English'}</p>
+            <p><span className="font-semibold">Location:</span> {userData.location || 'Not specified'}</p>
+          </div>
+        ) : (
+          <p className="text-gray-500">Loading vendor info...</p>
+        )}
       </section>
 
-      {/* Orders Section */}
+      {/* Orders */}
       <section className="bg-white rounded-2xl shadow-lg p-6">
         <h3 className="text-2xl font-semibold mb-4 text-green-600">🛒 My Orders</h3>
-        {orders.length === 0 ? (
+        {orders && orders.length === 0 ? (
           <p className="text-gray-500">No orders yet.</p>
         ) : (
           <ul className="grid gap-4 md:grid-cols-2">
@@ -79,7 +60,7 @@ const VendorDashboard = () => {
                 <p><strong>Item:</strong> {order.itemName}</p>
                 <p><strong>Quantity:</strong> {order.quantity} kg</p>
                 <p><strong>Total:</strong> ₹{order.totalPrice}</p>
-                <p><strong>Status:</strong> {order.status}</p>
+                {/*<p><strong>Status:</strong> {order.status}</p>*/}
                 <p><strong>Date:</strong> {new Date(order.dateOfPurchase).toLocaleDateString()}</p>
               </li>
             ))}
@@ -103,13 +84,13 @@ const VendorDashboard = () => {
                 <p><strong>Posted on:</strong> {new Date(item.datePosted).toLocaleDateString()}</p>
                 <div className="mt-4 flex gap-2">
                   <Button
-                    onClick={() => alert('Updated the item!')}
+                    onClick={() => alert('Update functionality to be implemented')}
                     className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
                     Update
                   </Button>
                   <Button
-                    onClick={() => alert(`Deleted the item: ${item.itemName}`)}
+                    onClick={() => alert(`Delete functionality for: ${item.itemName}`)}
                     className="bg-red-500 hover:bg-red-600 text-white"
                   >
                     Delete

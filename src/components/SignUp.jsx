@@ -3,30 +3,31 @@ import { Link, useNavigate } from 'react-router-dom'
 import Button from './Button.jsx'
 import Input from './Input.jsx'
 import Logo from './Logo.jsx'
-import { useDispatch } from 'react-redux'
+import { login } from '../store/authSlice'; 
+//import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next' // added
+import { registerVendor } from '../services/vendorService.js'  // adjust the path as needed
 
 export default function SignUp() {
     const navigate = useNavigate()
     const [error, setError] = useState("")
-    const dispatch = useDispatch()
+   // const dispatch = useDispatch()
     const { register, handleSubmit } = useForm()
     const { t } = useTranslation() // added
-
-    const create = async (data) => {
-        // setError("")
-        // try {
-        //     const userData = await authService.createAccount(data)
-        //     if (userData) {
-        //         const currentUser = await authService.getCurrentUser()
-        //         if(currentUser) dispatch(login(currentUser));
-        //         navigate("/")
-        //     }
-        // } catch (error) {
-        //     setError(error.message)
-        // }
+  const create = async (data) => {
+    setError("")
+    try {
+        const userData = await registerVendor(data)
+        if (userData) {
+            navigate("/login") // Or go to profile or homepage
+            
+        }
+    } catch (error) {
+        setError(error.response?.data?.message || "Registration failed")
     }
+}
+    
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-yellow-100 to-yellow-50 px-6 py-10 ">
@@ -58,19 +59,14 @@ export default function SignUp() {
                                 required: true,
                             })}
                         />
-                        <Input
-                            label={t("Email: ")}
-                            placeholder={t("Enter your email")}
-                            type="email"
-                            {...register("email", {
-                                required: true,
-                                validate: {
-                                    matchPattern: (value) =>
-                                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                                        t("Email address must be a valid address"),
-                                }
-                            })}
-                        />
+                       <Input
+                          label={t("Phone Number")}
+                          placeholder={t("Enter your phone number")}
+                          type="tel"
+                          {...register("phone", {
+                              required: true,
+                          })}
+                      />
                         <Input
                             label={t("Password: ")}
                             type="password"
@@ -88,3 +84,4 @@ export default function SignUp() {
         </div>
     )
 }
+

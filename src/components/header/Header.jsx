@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 
 function Header() {
   const navigate = useNavigate();
-  const authStatus = false; // useSelector((state) => state.auth.status);
+  const authStatus =  useSelector((state) => state.auth.status);
   const { t } = useTranslation();
 
   const navItems = [
@@ -24,23 +24,23 @@ function Header() {
     {
       name: 'Buy Materials',
       slug: '/buy-items',
-      active: !authStatus,
+      active: true,
     },
     {
       name: 'Sell Materials',
       slug: '/sell-items',
-      active: !authStatus,
+      active: true,
     },
     {
       name: 'Profile',
       slug: '/profile',
-      active: !authStatus,
+      active: authStatus,
     },
-//     {
-//       name: 'Sell Material',
-//       slug: '/profile/sell-Material',
-//       active: !authStatus,
-//     },
+   {
+      name: 'Resale Form',
+      slug: '/resale',
+      active: authStatus,
+    },  
   ];
 
   return (
@@ -73,8 +73,9 @@ function Header() {
           {/* Language Toggle & Logout */}
           <div className="flex items-center bg-amber-500 p-3 m-2 rounded-lg font-bold text-black gap-2">
             <LanguageToggle />
+            </div>
             {authStatus && <LogoutBtn />}
-          </div>
+          
         </nav>
       </Container>
     </header>

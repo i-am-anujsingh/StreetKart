@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n'
-import '../../i18n'
+import i18n from '../../i18n';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -9,6 +8,7 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-yellow-100 px-4 py-8 mt-10 shadow-inner">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        
         {/* App Info */}
         <div className="text-center md:text-left">
           <h1 className="text-2xl font-bold text-yellow-300">{t("footer.app_name", "StreetKart")}</h1>

@@ -6,6 +6,8 @@ import Logo from './Logo.jsx'
 import { useDispatch } from "react-redux"
 import { useForm } from "react-hook-form"
 import { useTranslation } from 'react-i18next'
+import { loginVendor } from '../services/vendorService.js'; // import the service function
+import { login } from '../store/authSlice'; // if using redux auth slice
 
 export default function LogIn() {
     const { t } = useTranslation()
@@ -14,20 +16,20 @@ export default function LogIn() {
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState("")
 
-    const onLogin = async (data) => {
-        // setError("")
-        // try {
-        //     authService.logout()
-        //     const session = await authService.login(data)
-        //     if (session) {
-        //         const userData = await authService.getCurrentUser()
-        //         if (userData) dispatch(login(userData));
-        //         navigate("/")
-        //     }
-        // } catch (error) {
-        //     setError(error.message)
-        // }
+
+const onLogin = async (data) => {
+    setError("");
+    try {
+        const user = await loginVendor(data);
+        if (user) {
+            dispatch(login(user.vendor)); // save user data in redux
+            navigate("/profile");
+        }
+    } catch (error) {
+        setError(error.message || "Login failed");
     }
+};
+    
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-yellow-100 to-yellow-50 px-6 py-10">
@@ -43,7 +45,7 @@ export default function LogIn() {
                 <p className="mt-2 text-center text-base text-black/60">
                     {t("Don't have any account?")}&nbsp;
                     <Link
-                        to="/signup"
+                        to="/register"
                         className="font-medium text-primary transition-all duration-200 hover:underline"
                     >
                         {t("Sign Up")}
@@ -51,20 +53,14 @@ export default function LogIn() {
                 </p>
                 {error && <p className="text-red-600 mt-8 text-center">{t("Some error occurred")}</p>}
                 <form onSubmit={handleSubmit(onLogin)} className='mt-8'>
-                    <div className='space-y-5'>
-                        <Input
-                            label={t("Email: ")}
-                            placeholder={t("Enter your email")}
-                            type="email"
-                            {...register("email", {
-                                required: true,
-                                validate: {
-                                    matchPatern: (value) =>
-                                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                                        t("Email address must be a valid address"),
-                                }
-                            })}
-                        />
+                    <div className='space-y-5'><Input
+                          label={t("Phone Number")}
+                          placeholder={t("Enter your phone number")}
+                          type="tel"
+                          {...register("phone", {
+                              required: true,
+                          })}
+                      />
                         <Input
                             label={t("Password: ")}
                             type="password"

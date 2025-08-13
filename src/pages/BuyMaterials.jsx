@@ -1,41 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import MaterialCard from '../components/cards/Materialcard.jsx';
 import { useTranslation } from 'react-i18next';
+import { placeOrder } from '../services/itemService'; 
+import { getAllMaterials } from '../services/materialService'; 
+import { useSelector } from 'react-redux';
 
-const mockItems = [
-  {
-    _id: '1',
-    name: 'Tomato',
-    description: 'Fresh red tomatoes',
-    pricePerKg: 25,
-    image: 'https://source.unsplash.com/400x300/?tomato'
-  },
-  {
-    _id: '2',
-    name: 'Onions',
-    description: 'Organic onions',
-    pricePerKg: 20,
-    image: ''
-  }
-];
+
 
 export default function BuyMaterials() {
   const [items, setItems] = useState([]);
   const { t } = useTranslation();
+  const authData =  useSelector((state) => state.auth.userData);
 
   useEffect(() => {
-    // Replace with real API call
-    setItems(
-      mockItems.map(item => ({
-        ...item,
-        image: item.image || 'https://source.unsplash.com/400x300/?vegetables'
-      }))
-    );
+    const loadItems = async () => {
+      try {
+        const data = await getAllMaterials();
+        setItems(
+          data.map(item => ({
+            ...item,
+            image: item.image || 'https://source.unsplash.com/400x300/?vegetables'
+          }))
+        );
+      } catch (err) {
+        console.error("Failed to fetch items", err);
+      }
+    };
+
+    loadItems();
   }, []);
 
-  const handleBuy = (item) => {
-    alert(`${t('You chose to buy')}: ${t(item.name)}`);
-    // TODO: Trigger real API call here
+  const handleBuy = async (item) => {
+    const quantity = parseInt(prompt(`Enter quantity in kg for ${item.name}:`));
+    if (!quantity || quantity <= 0) return;
+
+    const orderData = {
+      vendorId: authData._id, // ⚠️ Replace with logged-in vendor ID
+      itemId: item._id,
+      itemName: item.name,
+      quantity,
+      totalPrice: item.pricePerKg * quantity
+    };
+
+    try {
+      await placeOrder(orderData);
+      alert(`Successfully ordered ${quantity} kg of ${item.name}`);
+    } catch (err) {
+      alert("Order failed. Please try again.");
+    }
   };
 
   return (
