@@ -71,9 +71,6 @@ function Header() {
           </ul>
 
           {/* Language Toggle & Logout */}
-          <div className="flex items-center bg-amber-500 p-3 m-2 rounded-lg font-bold text-black gap-2">
-            <LanguageToggle />
-            </div>
             {authStatus && <LogoutBtn />}
           
         </nav>
