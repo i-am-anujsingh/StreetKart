@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
 
-const ResaleCard = ({ item }) => {
+const ResaleCard = ( item ) => {
     const {t} = useTranslation();
   
   return (

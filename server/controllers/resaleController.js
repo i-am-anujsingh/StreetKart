@@ -1,23 +1,29 @@
 const ResaleItem = require('../models/ResaleItem.js');
 
 exports.postResaleItem = async (req, res) => {
+  console.log("Incoming resale data:", req.body);
+
+  const { itemName, quantity, price, location } = req.body;
+
   try {
-    const { itemName, quantity, price, location, sellerId } = req.body;
-    const resale = new ResaleItem({
-      sellerId: sellerId,
-      itemName: itemName,
-      quantity: quantity,
-      price: price,
-      location: location,
+    const newResale = new ResaleItem({
+      itemName,
+      quantity,
+      price,
+      location,
+      description: 'NA',
       status: 'available',
       datePosted: new Date(),
     });
-    await resale.save();
-    res.status(201).json(resale);
+
+    await newResale.save();
+    res.status(201).json(newResale);
   } catch (error) {
+    console.error("\n\nError saving resale item:", error);
     res.status(500).json({ message: 'Server error', error });
   }
 };
+
 
 exports.getResaleListings = async (req, res) => {
   try {
@@ -27,18 +33,3 @@ exports.getResaleListings = async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 };
-
-// exports.buyResaleItem = async (req, res) => {
-//   try {
-//     const resale = await ResaleItem.findById(req.params.id);
-//     if (!resale || resale.status !== 'available') {
-//       return res.status(400).json({ message: 'Item not available' });
-//     }
-// 
-//     resale.status = 'sold';
-//     await resale.save();
-//     res.status(200).json({ message: 'Item purchased', resale });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Server error', error });
-//   }
-// };

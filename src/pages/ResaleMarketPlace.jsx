@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import ResaleCard from "../components/cards/Resalecard.jsx";
-import { getAllResaleItems } from "../services/resaleService.js"; // Import the service
+import {getAllResaleItems} from "../services/resaleService.js"; // Import the service
 
 const ResaleMarketplace = () => {
-  const [items, setItems] = useState([]);
+  const [list, setList] = useState([]);
 
   useEffect(() => {
     const getItems = async () => {
       try {
         const data = await getAllResaleItems();
-        setItems(data);
+        setList(data.listings);
       } catch (err) {
         console.error("Failed to load resale items:", err);
       }
@@ -24,15 +24,18 @@ const ResaleMarketplace = () => {
           Resale Marketplace
         </h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {items.map((item, index) => (
-            <ResaleCard
-              key={index}
-              item={{
-                ...item,
-                image: item.image || "https://source.unsplash.com/400x300/?vegetables"
-              }}
-            />
-          ))}
+            {
+              list?(
+                list?.map((l, index) => (
+                  <ResaleCard
+                    key={index}
+                    item={l}
+                  />
+                ))
+              ):<p className="text-4xl text-green-600 text-center w-full">
+              loading...
+              </p>
+            }
         </div>
       </div>
     </div>

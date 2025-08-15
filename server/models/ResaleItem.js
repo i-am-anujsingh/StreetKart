@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const resaleItemSchema = new mongoose.Schema({
-  sellerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vendor',
-    required: true
-  },
   itemName: {
     type: String,
     required: true
@@ -20,17 +15,13 @@ const resaleItemSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    default:null
+    default:'NA'
     // Optional note about the item
   },
   location: {
-    type: String
-    // For nearby filtering, optional
-  },
-  image: {
     type: String,
-    default:null
-    // Optional image URL
+    default:'NA'
+    // For nearby filtering, optional
   },
   status: {
     type: String,

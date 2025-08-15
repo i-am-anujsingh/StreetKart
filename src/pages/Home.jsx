@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { getAllMaterials } from '../services/materialService'; // ⬅️ import service
+import  {getAllMaterials} from '../services/materialService';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
   const { t } = useTranslation();
   const [materials, setMaterials] = useState([]);
+  const [message, setMessage] = useState('')
   const authStatus = useSelector(state=>state.auth.status);
   
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
         const data = await getAllMaterials();
-        alert(data.message)
         setMaterials(data.items);
+        setMessage(data.message);
       } catch (err) {
-        console.error("Error fetching materials:", err);
+        console.log("Error home:",err);
       }
     };
 
@@ -55,7 +56,7 @@ const Home = () => {
           <p>{t('lang_note')}</p>
         </div>
       </div>):(<div className="w-full max-w-6xl">
-          <h2 className="text-3xl font-bold text-green-700 mb-6">Latest Resale Materials</h2>
+          <h2 className="text-3xl font-bold text-green-700 mb-6 text-center">Latest Materials</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {materials.map((item) => (
               <div key={item._id} className="bg-white shadow-md rounded-xl p-4 border hover:shadow-lg transition">

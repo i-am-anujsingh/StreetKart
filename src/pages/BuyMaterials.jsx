@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MaterialCard from '../components/cards/Materialcard.jsx';
 import { useTranslation } from 'react-i18next';
 import { placeOrder } from '../services/itemService'; 
-import { getAllMaterials } from '../services/materialService'; 
+import  {getAllMaterials} from '../services/materialService';
 import { useSelector } from 'react-redux';
 
 
@@ -16,14 +16,9 @@ export default function BuyMaterials() {
     const loadItems = async () => {
       try {
         const data = await getAllMaterials();
-        setItems(
-          data.map(item => ({
-            ...item,
-            image: item.image || 'https://source.unsplash.com/400x300/?vegetables'
-          }))
-        );
+        setItems(data.items);
       } catch (err) {
-        console.error("Failed to fetch items", err);
+        alert("Failed to fetch items");
       }
     };
 
@@ -35,7 +30,7 @@ export default function BuyMaterials() {
     if (!quantity || quantity <= 0) return;
 
     const orderData = {
-      vendorId: authData._id, // ⚠️ Replace with logged-in vendor ID
+      vendorId: authData._id, 
       itemId: item._id,
       itemName: item.name,
       quantity,

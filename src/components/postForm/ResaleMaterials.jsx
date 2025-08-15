@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
 import Input from "../Input.jsx";
 import Button from "../Button.jsx";
 import { useNavigate } from "react-router-dom";
@@ -7,95 +6,86 @@ import { useSelector } from "react-redux";
 import {createResaleItem} from "../../services/resaleService.js";
 
 export default function ResaleForm({ resaleItem }) {
-    const { register, handleSubmit, setValue, getValues } = useForm({
-        defaultValues: {
-            itemName: resaleItem?.itemName || "",
-            quantity: resaleItem?.quantity || "",
-            price: resaleItem?.price || "",
-            location: resaleItem?.location || "",
-        },
-    });
+  const { resaleData, setResaleData } = useState({
+    itemName: '',
+    quantity: null,
+    price: null,
+    location: '',
+  });
 
   const userData = useSelector((state) => state.auth.userData);
   const navigate = useNavigate();
+  
+  const handleChange =(e)=>{
+    const {name, value} = e.target;
+    setResaleData((prev)=>({
+      ...prev,
+      [name] : value,
+    }));
+  }
+  
+  
   const submit = async (data) => {
-      const formData = new FormData();
-      formData.append("itemName", data.itemName);
-      formData.append("quantity", data.quantity);
-      formData.append("price", data.price);
-      formData.append("location", data.location);
-      formData.append("sellerId", userData._id); // or userData.$id if you're using Appwrite/Mongo
-      if (data.image[0]) {
-          formData.append("image", data.image[0]);
-      }
-  
-      let responseItem;
-      //TO WORK ON THIS LATER
-     //  if (resaleItem || 0) {
-//           responseItem = await updateResaleItem(resaleItem._id, formData);
-//       } else 
-      
-          responseItem = await createResaleItem(formData);
-      
-  
-      if (responseItem) {
-        navigate("/profile")
-         // navigate(`/resale/${responseItem._id}`);
-      }
+    try {
+      const responseItem = await createResaleItem(data);
+      responseItem? navigate("/profile") : alert('empty');
+    } catch (error) {
+      console.log('\n\nERROR :: ',error);
+    }
   };
     
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+        <form onSubmit={(e)=>{
+            e.preventDefault();
+            submit(resaleData);
+        }} className="flex flex-wrap">
             <div className="w-2/3 px-2">
-                <Input
-                    label="Item Name:"
-                    placeholder="e.g., Tomatoes"
-                    className="mb-4"
-                    {...register("itemName", { required: true })}
-                />
-                <Input
-                    label="Quantity (kg):"
-                    placeholder="e.g., 10"
-                    className="mb-4"
-                    type="number"
-                    {...register("quantity", { required: true, min: 1 })}
-                />
-                <Input
-                    label="Price (₹):"
-                    placeholder="e.g., 200"
-                    className="mb-4"
-                    type="number"
-                    {...register("price", { required: true, min: 1 })}
-                />
-                <Input
-                    label="Location:"
-                    placeholder="Your area or market"
-                    className="mb-4"
-                    {...register("location", { required: true })}
-                />
+              <Input
+                name="itemName"
+                value={resaleData.itemName}
+                onChange={handleChange}
+                label="Item Name:"
+                placeholder="e.g., Tomatoes"
+                className="mb-4"
+                required
+              />
+              <Input
+                name="quantity"
+                value={resaleData.quantity}
+                onChange={handleChange}
+                label="Quantity (kg):"
+                placeholder="e.g., 10"
+                className="mb-4"
+                type="number"
+                required
+              />
+              <Input
+                name="price"
+                value={resaleData.price}
+                onChange={handleChange}
+                label="Price (₹):"
+                placeholder="e.g., 200"
+                className="mb-4"
+                type="number"
+                required
+              />
+              <Input
+                name="location"
+                value={resaleData.location}
+                onChange={handleChange}
+                label="Location:"
+                placeholder="Your area or market"
+                className="mb-4"
+                required
+              />
             </div>
-            <div className="w-1/3 px-2">
-                <Input
-                    label="Item Image:"
-                    type="file"
-                    className="mb-4"
-                    accept="image/png, image/jpg, image/jpeg"
-                    {...register("image", { required: !resaleItem })}
-                />
-                {/*resaleItem && resaleItem.image && (
-                    <div className="w-full mb-4">
-                        <img
-                            src={service.getFilePreview(resaleItem.image)}
-                            alt={resaleItem.itemName}
-                            className="rounded-lg"
-                        />
-                    </div>
-                )*/}
-                <Button type="submit" bgColor={resaleItem ? "bg-yellow-500" : "bg-blue-600"} className="w-full">
+                <button
+                  type="submit"
+                  className={`w-full ${resaleItem ? "bg-yellow-500" : "bg-blue-600"}`}
+                >
                     {resaleItem ? "Update Listing" : "Post Resale Item"}
-                </Button>
-            </div>
+                </button>
         </form>
     );
 }
