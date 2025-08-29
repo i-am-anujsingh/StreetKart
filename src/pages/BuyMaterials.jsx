@@ -19,7 +19,7 @@ export default function BuyMaterials() {
         setItems(
           data.map(item => ({
             ...item,
-            image: item.image || 'https://source.unsplash.com/400x300/?vegetables'
+            image: item.image || null
           }))
         );
       } catch (err) {
