@@ -8,7 +8,7 @@ purchaseItem,
 const verifyToken = require("../middlewares/authMiddleware");
 
 router.get("/items", getItems);
-router.get("/items/:id", getItemById);
+router.get("/item/:id", getItemById);
 // router.post("/buy-items", verifyToken, purchaseItem);
 
 module.exports = router;
