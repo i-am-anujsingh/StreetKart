@@ -23,7 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-.gitignore
 .env
+.env.*
+.gitignore
 server/.env
 .vercel
